@@ -1,10 +1,9 @@
+import processing.core.PApplet;
+
 /**
  * Created by Mark Joya on 25/12/16.
  * Imported from existing Processing project and converted to IntelliJ syntax
  **/
-import processing.core.PApplet;
-import java.awt.Color;
-
 public class MainApp extends PApplet {
 
     public static void main(String[] args) {
@@ -22,37 +21,36 @@ public class MainApp extends PApplet {
     //Bigger maze
     //PRESS ENTER TO RESTART DURING GAME
 
-    static final int DIMS = 500;
-    static final int SQPERROW = 5;
-    static final int SQUAREWIDTH = DIMS / SQPERROW;
-    static final int SQUAREHALF = SQUAREWIDTH / 2;
-    static final int MIL_PER_CENTI = 10;
-    static final int MIL_PER_SEC = 1000;
-    static final int MIL_PER_MIN = 60000;
+    private final static int DIMS = 500;
+    private final static int SQPERROW = 5;
+    private final static int SQUAREWIDTH = DIMS / SQPERROW;
+    private final static int SQUAREHALF = SQUAREWIDTH / 2;
+    private final static int MIL_PER_CENTI = 10;
+    private final static int MIL_PER_SEC = 1000;
+    private final static int MIL_PER_MIN = 60000;
 
-    final int BGRED = color(255, 98, 103); //#FF6267
-    final int BGBLUE = color(98, 112, 255); //#6270FF
-    final int BGGREEN = color(14, 227, 22); //#0EE316
-    final int BGYELLOW = color(227, 217, 14); //#E3D90E
-    final int BGWHITE = color(255, 255, 255);
-    final int AVRED = color(255, 0, 0);
-    final int AVBLUE = color(0, 0, 255);
-    final int AVGREEN = color(0, 255, 0);
-    final int AVYELLOW = color(255, 255, 0);
+    private final int BGRED = color(255, 98, 103); //#FF6267
+    private final int BGBLUE = color(98, 112, 255); //#6270FF
+    private final int BGGREEN = color(14, 227, 22); //#0EE316
+    private final int BGYELLOW = color(227, 217, 14); //#E3D90E
+    private final int BGWHITE = color(255, 255, 255);
+    private final int AVRED = color(255, 0, 0);
+    private final int AVBLUE = color(0, 0, 255);
+    private final int AVGREEN = color(0, 255, 0);
+    private final int AVYELLOW = color(255, 255, 0);
 
-    Avatar player;
-    Square[][] maze;
-    Stopwatch timer;
-    boolean showStartScreen;
-    boolean restartCond;
-    boolean timerStarted;
+    private Avatar player;
+    private Square[][] maze;
+    private Stopwatch timer;
+    private boolean showStartScreen;
+    private boolean restartCond;
+    private boolean timerStarted;
 
     public void settings() {
-        size(200, 200);
+        size(500, 500);
     }
 
     public void setup() {
-        size(500, 500);
         maze = new Square[SQPERROW][SQPERROW];
         showStartScreen = true;
         restartCond = false;
@@ -61,7 +59,7 @@ public class MainApp extends PApplet {
     }
 
     public void draw() {
-        if (showStartScreen == true) {
+        if (showStartScreen) {
             startMenu();
         } else {
             if (!timerStarted) {
@@ -78,7 +76,7 @@ public class MainApp extends PApplet {
     }
 
     //Sets starting state for a new sketch
-    void newSketch() {
+    private void newSketch() {
         player = new Avatar();
 
         restartCond = false;
@@ -86,7 +84,7 @@ public class MainApp extends PApplet {
         //Set up maze squares - random colour and fixed position
         for (int i = 0; i < SQPERROW; i++) {
             for (int j = 0; j < SQPERROW; j++) {
-                int colorSelect = random(0, 4);
+                int colorSelect = (int) random(0, 4);
                 if (colorSelect == 0) {
                     maze[i][j] = new Square(BGRED, SQUAREHALF + SQUAREWIDTH * j, SQUAREHALF + SQUAREWIDTH * i);
                 } else if (colorSelect == 1) {
@@ -122,7 +120,7 @@ public class MainApp extends PApplet {
     }
 
     //Shows the Start Menu screen before the game starts
-    void startMenu() {
+    private void startMenu() {
         background(255, 255, 255, 200);
         textSize(20);
         textAlign(CENTER);
@@ -132,8 +130,8 @@ public class MainApp extends PApplet {
     }
 
     //Registers a mouse press to start the game
-    void mouseClicked() {
-        if (showStartScreen == true) {
+    public void mouseClicked() {
+        if (showStartScreen) {
             loop();
             showStartScreen = false;
             println("Finished showStartScreen loop");
@@ -142,9 +140,9 @@ public class MainApp extends PApplet {
 
     //Register what key is pressed for the player class
     //Blocks key presses if start screen is showing
-    void keyPressed() {
-        if (showStartScreen == false) {
-            if (restartCond == false) {
+    public void keyPressed() {
+        if (!showStartScreen) {
+            if (!restartCond) {
                 player.keyPressed();
             } else if (keyCode == ENTER) {
                 newSketch();
@@ -154,7 +152,7 @@ public class MainApp extends PApplet {
     }
 
     //Draw the interior grid of squares
-    void drawGrid() {
+    private void drawGrid() {
         stroke(0, 0, 0, 40);
         for (int x = 0; x < SQPERROW; x++) {
             for (int y = 0; y < SQPERROW; y++) {
@@ -164,29 +162,25 @@ public class MainApp extends PApplet {
     }
 
     //Draws the exterior border of maze
-    void drawBorder() {
+    private void drawBorder() {
         stroke(0, 0, 0);
         strokeWeight(10);
         noFill();
         rect(0, 0, DIMS, DIMS);
     }
 
-    boolean isColorMatch(Square gridSquare, Avatar player) {
-        if (gridSquare.c == BGWHITE) {
-            return true;
-        } else if ((player.c == AVRED && gridSquare.c == BGRED) ||
-                (player.c == AVBLUE && gridSquare.c == BGBLUE) ||
-                (player.c == AVGREEN && gridSquare.c == BGGREEN) ||
-                (player.c == AVYELLOW && gridSquare.c == BGYELLOW)) {
-            return true;
-        } else {
-            return false;
-        }
+    private boolean isColorMatch(Square gridSquare, Avatar player) {
+        if (gridSquare.c == BGWHITE) return true;
+        if (player.c == AVRED) if (gridSquare.c == BGRED) return true;
+        if (player.c == AVBLUE) if (gridSquare.c == BGBLUE) return true;
+        if (player.c == AVGREEN) if (gridSquare.c == BGGREEN) return true;
+        if (player.c == AVYELLOW) if (gridSquare.c == BGYELLOW) return true;
+        return false;
     }
 
     //Class for player character
     class Avatar {
-        Color c;
+        int c;
         int xpos;
         int ypos;
         int xPosGrid;
@@ -315,30 +309,10 @@ public class MainApp extends PApplet {
 
         //Retrieves the wall status for the current square and sets player direction variables to "blocked" accordingly
         void checkBlocked(int xPosGrid, int yPosGrid) {
-            if (maze[yPosGrid][xPosGrid].topL == 1) {
-                topBlock = true;
-            } else {
-                topBlock = false;
-            }
-
-            if (maze[yPosGrid][xPosGrid].rightL == 1) {
-                rightBlock = true;
-            } else {
-                rightBlock = false;
-            }
-
-            if (maze[yPosGrid][xPosGrid].botL == 1) {
-                botBlock = true;
-            } else {
-                botBlock = false;
-            }
-
-            if (maze[yPosGrid][xPosGrid].leftL == 1) {
-                leftBlock = true;
-            } else {
-                leftBlock = false;
-            }
-
+            topBlock = maze[yPosGrid][xPosGrid].topL == 1;
+            rightBlock = maze[yPosGrid][xPosGrid].rightL == 1;
+            botBlock = maze[yPosGrid][xPosGrid].botL == 1;
+            leftBlock = maze[yPosGrid][xPosGrid].leftL == 1;
         }
 
         //Erases color of grid square that player is on
@@ -349,7 +323,7 @@ public class MainApp extends PApplet {
 
     //Class for Grid Squares
     class Square {
-        Color c;
+        int c;
         int xpos;
         int ypos;
         int leftCoord;
@@ -362,7 +336,7 @@ public class MainApp extends PApplet {
         int botL;
         boolean winSq;
 
-        Square(Color tempC, int tempXpos, int tempYpos) {
+        Square(int tempC, int tempXpos, int tempYpos) {
             c = tempC;
             xpos = tempXpos;
             ypos = tempYpos;
@@ -432,7 +406,7 @@ public class MainApp extends PApplet {
         }
 
         //Sets a new color for a square
-        void setColor(Color newCol) {
+        void setColor(int newCol) {
             c = newCol;
         }
 
