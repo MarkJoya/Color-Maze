@@ -1,0 +1,7 @@
+** These notes detail changes made in the conversion process from Processing to Java w/ IntelliJ **
+
+Source material: https://processing.org/tutorials/eclipse/
+
+- Wrapped everything in Papplet
+- Changed "Color" types to "int"
+
