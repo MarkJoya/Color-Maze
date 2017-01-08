@@ -21,14 +21,14 @@ public class MainApp extends PApplet {
     //Bigger maze
     //PRESS ENTER TO RESTART DURING GAME
 
-    private final static int DIMS = 500;
-    private final static int SQPERROW = 5;
-    private final static int SQUAREWIDTH = DIMS / SQPERROW;
-    private final static int SQUAREHALF = SQUAREWIDTH / 2;
-    private final static int MIL_PER_CENTI = 10;
-    private final static int MIL_PER_SEC = 1000;
-    private final static int MIL_PER_MIN = 60000;
-
+    //Definitions
+    private static final int DIMS = 500;
+    private static final int SQPERROW = 5;
+    private static final int SQUAREWIDTH = DIMS / SQPERROW;
+    private static final int SQUAREHALF = SQUAREWIDTH / 2;
+    private static final int MIL_PER_CENTI = 10;
+    private static final int MIL_PER_SEC = 1000;
+    private static final int MIL_PER_MIN = 60000;
     private final int BGRED = color(255, 98, 103); //#FF6267
     private final int BGBLUE = color(98, 112, 255); //#6270FF
     private final int BGGREEN = color(14, 227, 22); //#0EE316

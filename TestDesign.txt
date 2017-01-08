@@ -1,0 +1,5 @@
+Avatar out of maze border - top, right, bottom, left
+Avatar on wrong colour
+Avatar crosses maze edge - top, right, bottom, left
+Avatar moves correctly to next space - no edge and colour correct
+Avatar on win square but wrong colour
