@@ -11,6 +11,7 @@ public class MainApp extends PApplet {
     }
 
     // TODO:
+    //Use scenario/functional testing to run tests
     //Leaderboard - for self only - run a timer during the game and show this for every iteration
     //  -this might be useful: print(System.currentTimeMillis());
     //Try and fix up avatar moving onto other side of line even after loss condition - use X symbol or highlight wall RED
@@ -303,6 +304,9 @@ public class MainApp extends PApplet {
         void restartMessage() {
             textSize(30);
             text("Press ENTER to start again", DIMS / 2, DIMS / 2 + 50);
+            String timeText = String.format("Your Time: %d ms", timer.currentTime());
+            text(timeText, DIMS / 2, DIMS / 2 + 90);
+            timerStarted = false;
             restartCond = true;
             noLoop();
         }
@@ -465,6 +469,5 @@ public class MainApp extends PApplet {
             text("test!", DIMS / 2, DIMS / 2);
             //TODO: SET COLOR AND POSITION AND PUT THIS IN DRAW
         }
-
     }
 }
