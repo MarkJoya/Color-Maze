@@ -67,7 +67,6 @@ public class MainApp extends PApplet {
                 timer = new Stopwatch(50, 50);
                 timerStarted = true;
             }
-            timer.displayTime();
             drawGrid();
             drawBorder();
             player.display();
@@ -304,8 +303,7 @@ public class MainApp extends PApplet {
         void restartMessage() {
             textSize(30);
             text("Press ENTER to start again", DIMS / 2, DIMS / 2 + 50);
-            String timeText = String.format("Your Time: %d ms", timer.currentTime());
-            text(timeText, DIMS / 2, DIMS / 2 + 90);
+            text(timer.currentTime(), DIMS / 2, DIMS / 2 + 90);
             timerStarted = false;
             restartCond = true;
             noLoop();
@@ -450,16 +448,26 @@ public class MainApp extends PApplet {
             mins = 0;
         }
 
-        int currentTime() {
+        int currentMillis() {
             return (int) (millis() - startTime);
         }
 
-        void displayTime() {
-            println("Current time is", currentTime());
+        String currentTime() {
+            int totalMillis = (int) (millis() - startTime);
+            int millis = floor(totalMillis % 1000/ 10);
+            int totalSec = floor(totalMillis / 1000);
+            int sec = floor(totalSec % 60);
+            int min = floor(totalSec / 60);
 
-            centiSecs = currentTime() / MIL_PER_CENTI;
-            secs = currentTime() / MIL_PER_SEC;
-            mins = currentTime() / MIL_PER_MIN;
+            return String.format("Your Time: %02d:%02d:%02d", min, sec, millis);
+        }
+
+        void displayTime() {
+            println("Current time is", currentMillis());
+
+            centiSecs = currentMillis() / MIL_PER_CENTI;
+            secs = currentMillis() / MIL_PER_SEC;
+            mins = currentMillis() / MIL_PER_MIN;
 
             println(mins, secs, centiSecs);
 
