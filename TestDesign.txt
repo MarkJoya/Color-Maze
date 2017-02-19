@@ -3,3 +3,18 @@ Avatar on wrong colour - the other 3 colours
 Avatar crosses maze edge - top, right, bottom, left
 Avatar moves correctly to next space - no edge and colour correct
 Avatar on win square but wrong colour
+
+CORNER TURNING BUG:
+TO TEST:
+	down right
+	left up
+	left down
+
+NOT AFFECTED:
+	right down
+	right up
+
+AFFECTED:
+	down left
+	up left
+	up right

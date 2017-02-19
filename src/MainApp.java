@@ -66,6 +66,7 @@ public class MainApp extends PApplet {
             if (!timerStarted) {
                 timer = new Stopwatch(50, 50);
                 timerStarted = true;
+                println("Timer started");
             }
             drawGrid();
             drawBorder();
@@ -145,6 +146,9 @@ public class MainApp extends PApplet {
             if (keyCode == ENTER) {
                 newSketch();
                 loop();
+                timer = new Stopwatch(50, 50);
+                timerStarted = true;
+                println("Timer started");
             } else if (!restartCond) {
                 player.keyPressed();
             }
