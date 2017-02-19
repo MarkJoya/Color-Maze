@@ -11,7 +11,7 @@ public class MainApp extends PApplet {
     }
 
     // TODO:
-    //Use scenario/functional testing to run tests
+    //BUG: On laptop: moving a corner of the same colour too quickly causes a false loss condition
     //Leaderboard - for self only - run a timer during the game and show this for every iteration
     //  -this might be useful: print(System.currentTimeMillis());
     //Try and fix up avatar moving onto other side of line even after loss condition - use X symbol or highlight wall RED
@@ -142,11 +142,11 @@ public class MainApp extends PApplet {
     //Blocks key presses if start screen is showing
     public void keyPressed() {
         if (!showStartScreen) {
-            if (!restartCond) {
-                player.keyPressed();
-            } else if (keyCode == ENTER) {
+            if (keyCode == ENTER) {
                 newSketch();
                 loop();
+            } else if (!restartCond) {
+                player.keyPressed();
             }
         }
     }
