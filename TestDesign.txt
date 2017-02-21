@@ -6,15 +6,16 @@ Avatar on win square but wrong colour
 
 CORNER TURNING BUG:
 TO TEST:
-	down right
-	left up
-	left down
+    location dependent? seems to be
 
 NOT AFFECTED:
 	right down
 	right up
+	left up
+	left down
 
 AFFECTED:
 	down left
+	down right
 	up left
 	up right
