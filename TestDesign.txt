@@ -5,11 +5,13 @@ Avatar moves correctly to next space - no edge and colour correct
 Avatar on win square but wrong colour
 
 CORNER TURNING BUG:
+    Bug also occurs in normal processing
+    Change history seems to be clean
 TO TEST:
     location dependent? seems to be
 
 NOT AFFECTED:
-	right down
+	right down - on right side its affected
 	right up
 	left up
 	left down

@@ -11,6 +11,7 @@ public class MainApp extends PApplet {
     }
 
     // TODO:
+    //Implement Recursive Backtrack Algorithm
     //BUG: On laptop: moving a corner of the same colour too quickly causes a false loss condition
     //Leaderboard - for self only - run a timer during the game and show this for every iteration
     //  -this might be useful: print(System.currentTimeMillis());
@@ -79,7 +80,6 @@ public class MainApp extends PApplet {
     //Sets starting state for a new sketch
     private void newSketch() {
         player = new Avatar();
-
         restartCond = false;
 
         //Set up maze squares - random colour and fixed position
@@ -103,6 +103,11 @@ public class MainApp extends PApplet {
         //Set bottom right square to be end square
         maze[SQPERROW - 1][SQPERROW - 1].setWinSq();
 
+        setGridLinesDefault();
+        println("Starting Posn:", player.yPosGrid, player.xPosGrid);
+    }
+
+    private void setGridLinesDefault() {
         //Hard coded maze grid - doesn't include outer border
         //Format: Top, Right, Bottom, Left. Each String is a grid square, laid out in grid order.
         String[][] gridLines = {{"0010", "0100", "0011", "0000", "0010"},
@@ -117,7 +122,6 @@ public class MainApp extends PApplet {
                 maze[i][j].setSqGrid(gridLines[i][j]);
             }
         }
-        println("Starting Posn:", player.yPosGrid, player.xPosGrid);
     }
 
     //Shows the Start Menu screen before the game starts
@@ -143,7 +147,7 @@ public class MainApp extends PApplet {
     //Blocks key presses if start screen is showing
     public void keyPressed() {
         if (!showStartScreen) {
-            if (keyCode == ENTER) {
+            if (keyCode == ENTER || keyCode == RETURN) {
                 newSketch();
                 loop();
                 timer = new Stopwatch(50, 50);
